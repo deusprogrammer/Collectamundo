@@ -1,12 +1,6 @@
 <%@ page import="com.trinary.Collectomundo.Console" %>
 
-<div class="fieldcontain ${hasErrors(bean: consoleInstance, field: 'company', 'error')} required">
-	<label for="company">
-		<g:message code="console.company.label" default="Company" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="company" name="company.id" from="${com.trinary.Collectomundo.Company.list()}" optionKey="id" required="" value="${consoleInstance?.company?.id}" class="many-to-one"/>
-</div>
+<g:hiddenField name="company.id" value="${consoleInstance ? consoleInstance.company.id : company}" />
 
 <div class="fieldcontain ${hasErrors(bean: consoleInstance, field: 'name', 'error')} ">
 	<label for="name">

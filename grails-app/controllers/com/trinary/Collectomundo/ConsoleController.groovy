@@ -18,7 +18,7 @@ class ConsoleController {
     }
 
     def create() {
-        [consoleInstance: new Console(params)]
+        [consoleInstance: new Console(params), company: params.company.id]
     }
 
     def save() {
@@ -130,7 +130,7 @@ class ConsoleController {
 			}
 		}
 		
-		redirect(controller: "game", action: "list")
+		redirect(controller: "game", action: "listByConsole", id: console.abbreviation)
 	}
 	
 	def editAccessoryLibrary() {

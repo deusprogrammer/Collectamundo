@@ -5,6 +5,8 @@ import grails.plugins.springsecurity.Secured
 
 @Secured(['ROLE_ROOT'])
 class GameController {
+	
+	def paginateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -16,9 +18,25 @@ class GameController {
         params.max = Math.min(max ?: 10, 100)
         [gameInstanceList: Game.list(params), gameInstanceTotal: Game.count()]
     }
+	
+	def listByConsole(String id) {
+		params.offset = (params.offset?.toInteger() ?: 0)
+		params.max = Math.min(params.max?.toInteger() ?: 10, 100)
+		params.sort = 'name'
+		
+		def console = Console.findByAbbreviation(id)
+		
+		if (!console) {
+			redirect(action: "index")
+		}
+		
+		def map = paginateService.paginate(console.games, params)
+		
+		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, console: console.abbreviation]
+	}
 
 	def create() {
-        [gameInstance: new Game(params)]
+        [gameInstance: new Game(params), console: params.console.id]
     }
 
     def save() {

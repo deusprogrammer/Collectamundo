@@ -24,27 +24,22 @@
 				<thead>
 					<tr>
 					
-						<th><g:message code="console.company.label" default="Company" /></th>
-					
-						<g:sortableColumn property="endOfLife" title="${message(code: 'console.endOfLife.label', default: 'End Of Life')}" />
-					
 						<g:sortableColumn property="name" title="${message(code: 'console.name.label', default: 'Name')}" />
-					
+						<th><g:message code="console.company.label" default="Company" /></th>
 						<g:sortableColumn property="releaseDate" title="${message(code: 'console.releaseDate.label', default: 'Release Date')}" />
+						<g:sortableColumn property="endOfLife" title="${message(code: 'console.endOfLife.label', default: 'End Of Life')}" />
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${consoleInstanceList}" status="i" var="consoleInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${consoleInstance.id}">${fieldValue(bean: consoleInstance, field: "company")}</g:link></td>
-					
-						<td><g:formatDate date="${consoleInstance.endOfLife}" /></td>
-					
-						<td>${fieldValue(bean: consoleInstance, field: "name")}</td>
-					
+											
+						<td><g:link action="show" id="${consoleInstance.id}">${fieldValue(bean: consoleInstance, field: "name")}</g:link></td>
+						<td>${fieldValue(bean: consoleInstance, field: "company")}</td>					
 						<td><g:formatDate date="${consoleInstance.releaseDate}" /></td>
+						<td><g:formatDate date="${consoleInstance.endOfLife}" /></td>
+						
 					
 					</tr>
 				</g:each>

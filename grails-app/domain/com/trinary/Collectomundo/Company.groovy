@@ -10,5 +10,6 @@ class Company {
 	}
 
     static constraints = {
+		name unique: true
     }
 }

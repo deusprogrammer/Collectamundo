@@ -13,6 +13,7 @@ class Game {
 	}
 
     static constraints = {
+		name unique: true
 		publisher nullable: true
 		releaseDate nullable: true
 		rarity nullable: true

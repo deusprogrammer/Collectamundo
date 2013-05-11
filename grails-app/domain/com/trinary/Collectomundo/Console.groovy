@@ -14,6 +14,7 @@ class Console {
 	}
 	
     static constraints = {
+		name unique: true
 		abbreviation nullable: true
     }
 }
