@@ -13,7 +13,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-company" class="content scaffold-show" role="main">
@@ -22,17 +21,6 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list company">
-			
-				<g:if test="${companyInstance?.consoles}">
-				<li class="fieldcontain">
-					<span id="consoles-label" class="property-label"><g:message code="company.consoles.label" default="Consoles" /></span>
-					
-						<g:each in="${companyInstance.consoles}" var="c">
-						<span class="property-value" aria-labelledby="consoles-label"><g:link controller="console" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
 			
 				<g:if test="${companyInstance?.name}">
 				<li class="fieldcontain">

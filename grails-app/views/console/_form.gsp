@@ -33,37 +33,3 @@
 	</label>
 	<g:datePicker name="endOfLife" precision="day"  value="${consoleInstance?.endOfLife}"  />
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: consoleInstance, field: 'games', 'error')} ">
-	<label for="games">
-		<g:message code="console.games.label" default="Games" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${consoleInstance?.games?}" var="g">
-    <li><g:link controller="game" action="show" id="${g.id}">${g?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="game" action="create" params="['console.id': consoleInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'game.label', default: 'Game')])}</g:link>
-</li>
-</ul>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: consoleInstance, field: 'accessories', 'error')} ">
-	<label for="accessories">
-		<g:message code="console.accessories.label" default="Accessories" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${consoleInstance?.accessories?}" var="a">
-    <li><g:link controller="accessory" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="accessory" action="create" params="['console.id': consoleInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'accessory.label', default: 'Accessory')])}</g:link>
-</li>
-</ul>
-
-</div>
