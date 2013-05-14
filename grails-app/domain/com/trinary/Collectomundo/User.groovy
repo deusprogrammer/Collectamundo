@@ -10,6 +10,8 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	
+	static hasMany = [games: Game, accessories: Accessory, consoles: Console]
 
 	static constraints = {
 		username blank: false, unique: true

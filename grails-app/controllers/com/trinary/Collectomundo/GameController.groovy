@@ -119,4 +119,20 @@ class GameController {
             redirect(action: "show", id: id)
         }
     }
+	
+	@Secured('ROLE_USER')
+	def addToCollection(Long id) {
+		def user = User.get(params.user)
+		def game = Game.get(id)
+		
+		if (user && game) {
+			user.addToGames(game)
+			user.save()
+			redirect(action: "list")
+		} else {
+			flash.message = "You must supply both a user and a title in your parameters."
+			redirect(action: "list")
+		}
+		return
+	}
 }

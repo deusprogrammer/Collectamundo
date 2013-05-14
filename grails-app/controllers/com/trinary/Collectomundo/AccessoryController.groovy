@@ -101,4 +101,20 @@ class AccessoryController {
             redirect(action: "show", id: id)
         }
     }
+	
+	@Secured('ROLE_USER')
+	def addToCollection(Long id) {
+		def user = User.get(params.user)
+		def accessory = Accessory.get(id)
+		
+		if (user && accessory) {
+			user.addToAccessories(accessory)
+			user.save()
+			redirect(action: "list")
+		} else {
+			flash.message = "You must supply both a user and a title in your parameters."
+			redirect(action: "list")
+		}
+		return
+	}
 }

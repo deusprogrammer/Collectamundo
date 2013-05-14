@@ -6,7 +6,8 @@ class Game {
 	Date releaseDate
 	Integer rarity
 	
-	static belongsTo = [console: Console]
+	static belongsTo = [console: Console, owner: User]
+	static hasMany = [owner: User]
 	
 	String toString() {
 		return name

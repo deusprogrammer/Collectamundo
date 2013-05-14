@@ -140,4 +140,20 @@ class ConsoleController {
 	def uploadAccessoryLibrary() {
 		
 	}
+	
+	@Secured('ROLE_USER')
+	def addToCollection(Long id) {
+		def user = User.get(params.user)
+		def console = Console.get(id)
+		
+		if (user && console) {
+			user.addToConsoles(console)
+			user.save()
+			redirect(action: "list")
+		} else {
+			flash.message = "You must supply both a user and a title in your parameters."
+			redirect(action: "list")
+		}
+		return
+	}
 }
