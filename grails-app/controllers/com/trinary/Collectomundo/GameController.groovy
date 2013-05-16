@@ -65,6 +65,28 @@ class GameController {
 		
 		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, username: user.username, console: params.console ?: "Game"]
 	}
+    
+    def search() {
+        def games = Game.list()
+        
+        if (params.console) {
+            games = games.findAll{it.console.abbreviation == params.console}
+        }
+        if (params.owner) {
+            User user = User.findByUsername(params.owner)
+            games = user.games.findAll{}
+        }
+        if (params.title) {
+            games = games.findAll{it.name ==~ params.title}
+        }
+        if (!params.sort) {
+            params.sort = "name"
+        }
+        
+        def map = paginateService.paginate(games, params)
+        
+        [gameInstanceList: map.list, gameInstanceTotal: map.listSize, params: params]
+    }
 
 	def create() {
         [gameInstance: new Game(params), console: params.console.id]
