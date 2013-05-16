@@ -19,32 +19,45 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="name" title="${message(code: 'game.name.label', default: 'Name')}" />
-					
-						<g:sortableColumn property="rarity" title="${message(code: 'game.rarity.label', default: 'Rarity')}" />
-					
-						<g:sortableColumn property="releaseDate" title="${message(code: 'game.releaseDate.label', default: 'Release Date')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${gameInstanceList}" status="i" var="gameInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "name")}</g:link></td>
-					
-						<td>${fieldValue(bean: gameInstance, field: "rarity")}</td>
-					
-						<td><g:formatDate date="${gameInstance.releaseDate}" /></td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
+			<g:form action="addAllToCollection">
+				<table>
+					<thead>
+						<tr>
+							
+							<sec:ifLoggedIn><th>Own</th></sec:ifLoggedIn>
+							
+							<sec:ifLoggedIn><th>Want</th></sec:ifLoggedIn>
+						
+							<g:sortableColumn property="name" title="${message(code: 'game.name.label', default: 'Name')}" />
+						
+							<g:sortableColumn property="rarity" title="${message(code: 'game.rarity.label', default: 'Rarity')}" />
+						
+							<g:sortableColumn property="releaseDate" title="${message(code: 'game.releaseDate.label', default: 'Release Date')}" />
+						
+						</tr>
+					</thead>
+					<tbody>
+						<g:each in="${gameInstanceList}" status="i" var="gameInstance">
+							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+							
+								<sec:ifLoggedIn><td><g:checkBox name="own" value="${gameInstance.id}" checked="${gameInstance.id in owned}"/></td></sec:ifLoggedIn>
+								
+								<sec:ifLoggedIn><td><g:checkBox name="want" value="${gameInstance.id}" checked="${false}"/></td></sec:ifLoggedIn>
+							
+								<td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "name")}</g:link></td>
+							
+								<td>${fieldValue(bean: gameInstance, field: "rarity")}</td>
+							
+								<td><g:formatDate date="${gameInstance.releaseDate}" /></td>
+							
+							</tr>
+						</g:each>
+					</tbody>
+				</table>
+				<fieldset class="buttons">
+					<g:submitButton name="add" value="Add to Collection" />
+				</fieldset>
+			</g:form>
 			<div class="pagination">
 				<g:paginate controller="game" action="listByConsole" id="${console}" total="${gameInstanceTotal}" />
 			</div>

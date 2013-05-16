@@ -14,6 +14,7 @@ class Game {
 	}
 
     static constraints = {
+		owner nullable: true
 		name unique: true
 		publisher nullable: true
 		releaseDate nullable: true

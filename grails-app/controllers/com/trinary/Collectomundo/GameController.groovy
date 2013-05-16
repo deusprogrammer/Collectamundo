@@ -3,10 +3,10 @@ package com.trinary.Collectomundo
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_ROOT'])
+//@Secured(['ROLE_ROOT'])
 class GameController {
-	
 	def paginateService
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -31,8 +31,39 @@ class GameController {
 		}
 		
 		def map = paginateService.paginate(console.games, params)
+		User user = springSecurityService.currentUser
 		
-		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, console: console.abbreviation]
+		println "START: ${map.start}"
+		println "END:   ${map.end}"
+		
+		println "BALLS: ${user.games.collect{it.id}}"
+		
+		def ownedGames = user.games.collect{it.id}.findAll{it >= map.start && it <= map.end}
+		
+		println "OWNED GAMES: ${ownedGames}"
+		
+		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, console: console.abbreviation, owned: ownedGames]
+	}
+	
+	def listByOwner(String id) {
+		User user = User.findByUsername(id)
+		def games
+		
+		if (params.console) {
+			games = user.games.findAll{it.console.abbreviation == params.console}
+		} else {
+			games = user.games
+		}
+		
+		if (!user) {
+			user = springSecurityService.currentUser
+		} 
+		
+		params.sort = "name"
+		
+		def map = paginateService.paginate(games, params)
+		
+		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, username: user.username, console: params.console ?: "Game"]
 	}
 
 	def create() {
@@ -120,19 +151,36 @@ class GameController {
         }
     }
 	
-	@Secured('ROLE_USER')
-	def addToCollection(Long id) {
-		def user = User.get(params.user)
-		def game = Game.get(id)
+	//@Secured('ROLE_USER')
+	def addAllToCollection() {
+		//def user = User.get(springSecurityService.currentUser)
+		User user = springSecurityService.currentUser
 		
-		if (user && game) {
-			user.addToGames(game)
+		if (!params.want instanceof List) {
+			params.want = [params.want]
+		}
+		
+		if (!params.own instanceof List) {
+			params.own = [params.own]
+		}
+		
+		def want = Game.getAll(params.want.collect{it.toInteger()})
+		def own  = Game.getAll(params.own.collect{it.toInteger()})
+		
+		println params.own.collect{it.toInteger()}
+
+		if (user && own) {
+			own.each {
+				println "OWN: ${it}"
+				user.addToGames(it)
+			}
 			user.save()
-			redirect(action: "list")
+			redirect(action: "listByOwner", id: user.username)
 		} else {
 			flash.message = "You must supply both a user and a title in your parameters."
 			redirect(action: "list")
 		}
+				
 		return
 	}
 }

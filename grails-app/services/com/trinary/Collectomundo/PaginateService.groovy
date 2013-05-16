@@ -14,6 +14,10 @@ class PaginateService {
 			}
 		}
 		
+		if (params["filter"] && params["filterValue"]) {
+			list = list.findAll{it[params["filter"]] == params["filterValue"]}
+		}
+		
 		println "OFFSET: " + params["offset"]
 		println "MAX:    " + params["max"]
 		
@@ -28,7 +32,7 @@ class PaginateService {
 			println "OFFSET: " + offset
 			println "RANGE:  " + endRange
   
-			return [listSize: list.size(), list: list[range]]
+			return [listSize: list.size(), list: list[range], start: offset, end: endRange]
 		}
 		
 		return [listSize: list.size(), list: list]

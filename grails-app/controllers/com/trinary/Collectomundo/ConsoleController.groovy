@@ -121,6 +121,7 @@ class ConsoleController {
 		def games = list.split("\n")
 		
 		games.each {
+			println it
 			def game = new Game(name: it)
 			game.console = console
 			if (!game.save()) {
