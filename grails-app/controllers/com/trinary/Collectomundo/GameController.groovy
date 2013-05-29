@@ -77,7 +77,7 @@ class GameController {
             games = user.games.findAll{}
         }
         if (params.title) {
-            games = games.findAll{it.name ==~ params.title}
+            games = games.findAll{it.name.toLowerCase().contains(params.title.toLowerCase())}
         }
         if (!params.sort) {
             params.sort = "name"
@@ -178,18 +178,18 @@ class GameController {
 		//def user = User.get(springSecurityService.currentUser)
 		User user = springSecurityService.currentUser
 		
-		if (!params.want instanceof List) {
+		if (!(params.want instanceof List)) {
 			params.want = [params.want]
 		}
 		
-		if (!params.own instanceof List) {
+		if (!(params.own instanceof List)) {
 			params.own = [params.own]
 		}
+
+		def want = Game.getAll(params.want)
+		def own  = Game.getAll(params.own)
 		
-		def want = Game.getAll(params.want.collect{it.toInteger()})
-		def own  = Game.getAll(params.own.collect{it.toInteger()})
-		
-		println params.own.collect{it.toInteger()}
+		println params.own
 
 		if (user && own) {
 			own.each {
