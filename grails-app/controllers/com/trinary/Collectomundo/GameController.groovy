@@ -173,7 +173,7 @@ class GameController {
         }
     }
 	
-	//@Secured('ROLE_USER')
+	@Secured('ROLE_USER')
 	def addAllToCollection() {
 		//def user = User.get(springSecurityService.currentUser)
 		User user = springSecurityService.currentUser
