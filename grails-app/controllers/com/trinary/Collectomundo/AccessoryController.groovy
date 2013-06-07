@@ -105,7 +105,7 @@ class AccessoryController {
         }
     }
 	
-	@Secured('ROLE_USER')
+	@Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_ROOT'])
 	def addToCollection(Long id) {
 		def user = User.get(params.user)
 		def accessory = Accessory.get(id)

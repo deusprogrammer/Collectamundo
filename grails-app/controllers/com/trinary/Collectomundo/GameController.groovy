@@ -53,9 +53,9 @@ class GameController {
 		def games
 		
 		if (params.platform) {
-			games = user.games.findAll{it.platform.abbreviation == params.platform}
+			games = user.gameCollection.findAll{it.platform.abbreviation == params.platform}
 		} else {
-			games = user.games
+			games = user.gameCollection
 		}
 		
 		if (!user) {
@@ -77,7 +77,7 @@ class GameController {
         }
         if (params.owner) {
             User user = User.findByUsername(params.owner)
-            games = user.games.findAll{}
+            games = user.gameCollection
         }
         if (params.title) {
             games = games.findAll{it.name.toLowerCase().contains(params.title.toLowerCase())}
@@ -176,21 +176,26 @@ class GameController {
         }
     }
 	
-	@Secured('ROLE_USER')
+	@Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_ROOT'])
 	def addAllToCollection() {
 		//def user = User.get(springSecurityService.currentUser)
 		User user = springSecurityService.currentUser
-		
-		if (!(params.want instanceof List)) {
+
+		/*		
+		if (!(params.want instanceof ArrayList)) {
 			params.want = [params.want]
 		}
 		
-		if (!(params.own instanceof List)) {
+		if (!(params.own instanceof ArrayList)) {
 			params.own = [params.own]
 		}
+		*/
+		
+		println "WANT: ${params.want}"
+		println "OWN:  ${params.own}"
 
-		def want = Game.getAll(params.want)
-		def own  = Game.getAll(params.own)
+		def want = Game.getAll(params.want.collect {it?.toInteger()})
+		def own  = Game.getAll(params.own.collect {it?.toInteger()})
 		
 		println params.own
 

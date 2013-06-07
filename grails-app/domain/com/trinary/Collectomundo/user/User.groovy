@@ -21,6 +21,18 @@ class User {
 	boolean passwordExpired
 	
 	static hasMany = [games: GameOwnership, accessories: AccessoryOwnership, consoles: ConsoleOwnership]
+
+	def getConsoleCollection() {
+		return consoles.collect {it.console}
+	}
+		
+	def getGameCollection() {
+		return games.collect {it.game}
+	}
+	
+	def getAccessoryCollection() {
+		return accessories.collect {it.accessory}
+	}
 	
 	def addToConsoleCollection(Console console) {
 		def ownership = new ConsoleOwnership(user: this, console: console)
@@ -35,6 +47,21 @@ class User {
 	def addToAccessoryCollection(Accessory accessory) {
 		def ownership = new AccessoryOwnership(user: this, accessory: accessory)
 		addToAccessories(ownership)
+	}
+	
+	def removeFromConsoleCollection(Console console) {
+		def consoleOwnership = consoles.find {it.console == console}
+		removeFromConsoles(consoleOwnership)
+	}
+	
+	def removeFromGameCollection(Game game) {
+		def gameOwnership = games.find {it.game == game}
+		removeFromGames(gameOwnership)
+	}
+	
+	def removeFromAccessoryCollection(Accessory accessory) {
+		def accessoryOwnership = accessories.find {it.accessory == accessory}
+		removeFromAccessories(accessoryOwnership)
 	}
 
 	static constraints = {

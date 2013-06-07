@@ -134,7 +134,7 @@ class PlatformController {
 			}
 		}
 		
-		redirect(controller: "game", action: "listByConsole", id: platform.abbreviation)
+		redirect(controller: "game", action: "listByPlatform", id: platform.abbreviation)
 	}
 	
 	def editAccessoryLibrary() {
@@ -145,7 +145,7 @@ class PlatformController {
 		
 	}
 	
-	@Secured('ROLE_USER')
+	@Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_ROOT'])
 	def addToCollection(Long id) {
 		def user = User.get(params.user)
 		def platform = Platform.get(id)

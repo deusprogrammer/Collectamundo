@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 		<div id="list-game" class="content scaffold-list" role="main">
-			<h1>${username}'s ${console} Collection</h1>
+			<h1>${username}'s ${platform} Collection</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 					
-						<th><g:message code="game.console.label" default="Console" /></th>
+						<th><g:message code="game.platform.label" default="Console" /></th>
 					
 						<g:sortableColumn property="name" title="${message(code: 'game.name.label', default: 'Name')}" />
 					
@@ -37,7 +37,7 @@
 				<g:each in="${gameInstanceList}" status="i" var="gameInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "console")}</g:link></td>
+						<td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "platform")}</g:link></td>
 					
 						<td>${fieldValue(bean: gameInstance, field: "name")}</td>
 					
