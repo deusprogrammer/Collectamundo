@@ -1,14 +1,6 @@
 <%@ page import="com.trinary.Collectomundo.Accessory" %>
 
-
-
-<div class="fieldcontain ${hasErrors(bean: accessoryInstance, field: 'console', 'error')} required">
-	<label for="console">
-		<g:message code="accessory.console.label" default="Console" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="console" name="console.id" from="${com.trinary.Collectomundo.Console.list()}" optionKey="id" required="" value="${accessoryInstance?.console?.id}" class="many-to-one"/>
-</div>
+<g:hiddenField name="platform.id" value="${accessoryInstance ? accessoryInstance.platform.id : platform}" />
 
 <div class="fieldcontain ${hasErrors(bean: accessoryInstance, field: 'name', 'error')} ">
 	<label for="name">

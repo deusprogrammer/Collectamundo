@@ -1,7 +1,8 @@
 package com.trinary.Collectomundo
 
-class Console {
-	String name
+class PlatformConsole {
+	Platform platform
+	Console console
 
     static constraints = {
     }

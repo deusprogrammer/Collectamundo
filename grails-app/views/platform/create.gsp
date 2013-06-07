@@ -1,4 +1,4 @@
-<%@ page import="com.trinary.Collectomundo.Console" %>
+<%@ page import="com.trinary.Collectomundo.Platform" %>
 <!DOCTYPE html>
 <html>
 	<head>

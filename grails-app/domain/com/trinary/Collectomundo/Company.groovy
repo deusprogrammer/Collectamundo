@@ -3,7 +3,7 @@ package com.trinary.Collectomundo
 class Company {
 	String name
 	
-	static hasMany = [consoles: Console]
+	static hasMany = [platforms: Platform]
 	
 	String toString() {
 		return name

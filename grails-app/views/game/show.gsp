@@ -23,11 +23,11 @@
 			</g:if>
 			<ol class="property-list game">
 			
-				<g:if test="${gameInstance?.console}">
+				<g:if test="${gameInstance?.platform}">
 				<li class="fieldcontain">
-					<span id="console-label" class="property-label"><g:message code="game.console.label" default="Console" /></span>
+					<span id="platform-label" class="property-label"><g:message code="game.platform.label" default="Console" /></span>
 					
-						<span class="property-value" aria-labelledby="console-label"><g:link controller="console" action="show" id="${gameInstance?.console?.id}">${gameInstance?.console?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="platform-label"><g:link controller="platform" action="show" id="${gameInstance?.platform?.id}">${gameInstance?.platform?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

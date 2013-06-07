@@ -1,4 +1,4 @@
-package com.trinary.Collectomundo
+package com.trinary.Collectomundo.ownerships
 
 
 
@@ -8,8 +8,8 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Company)
-class CompanyTests {
+@TestFor(AccessoryOwnership)
+class AccessoryOwnershipTests {
 
     void testSomething() {
        fail "Implement me"

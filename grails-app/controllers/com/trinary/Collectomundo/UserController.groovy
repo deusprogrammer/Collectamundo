@@ -1,6 +1,10 @@
 package com.trinary.Collectomundo
 
 import org.springframework.dao.DataIntegrityViolationException
+
+import com.trinary.Collectomundo.user.User;
+import com.trinary.Collectomundo.user.UserRole;
+
 import grails.plugins.springsecurity.Secured
 import grails.plugins.springsecurity.SpringSecurityService
 

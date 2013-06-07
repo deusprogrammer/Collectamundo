@@ -75,7 +75,7 @@
 					<span id="consoles-label" class="property-label"><g:message code="user.consoles.label" default="Consoles" /></span>
 					
 						<g:each in="${userInstance.consoles}" var="c">
-						<span class="property-value" aria-labelledby="consoles-label"><g:link controller="console" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="consoles-label"><g:link controller="platform" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>

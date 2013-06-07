@@ -28,7 +28,7 @@
 							
 							<sec:ifLoggedIn><th>Want</th></sec:ifLoggedIn>
 							
-							<g:sortableColumn property="console" title= "Console" />
+							<g:sortableColumn property="platform" title= "Platform" />
 						
 							<g:sortableColumn property="name" title="${message(code: 'game.name.label', default: 'Name')}" />
 						
@@ -46,7 +46,7 @@
 									
 							<sec:ifLoggedIn><td><g:checkBox name="want" value="${gameInstance.id}" checked="${false}"/></td></sec:ifLoggedIn>
 						
-							<td>${fieldValue(bean: gameInstance, field: "console")}</td>
+							<td>${fieldValue(bean: gameInstance, field: "platform")}</td>
 						
 							<td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "name")}</g:link></td>
 						

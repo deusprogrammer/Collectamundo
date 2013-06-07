@@ -1,6 +1,9 @@
 package com.trinary.Collectomundo
 
 import org.springframework.dao.DataIntegrityViolationException
+
+import com.trinary.Collectomundo.user.User;
+
 import grails.plugins.springsecurity.Secured
 
 @Secured(['ROLE_ROOT'])

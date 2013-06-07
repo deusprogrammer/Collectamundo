@@ -1,6 +1,6 @@
-import com.trinary.Collectomundo.User
 import com.trinary.Collectomundo.Role
-import com.trinary.Collectomundo.UserRole
+import com.trinary.Collectomundo.user.User;
+import com.trinary.Collectomundo.user.UserRole;
 
 class BootStrap {
 

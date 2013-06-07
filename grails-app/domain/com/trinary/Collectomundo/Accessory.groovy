@@ -9,7 +9,7 @@ class Accessory {
 		return name
 	}
 	
-	static belongsTo = [console: Console]
+	static belongsTo = [platform: Platform]
 
     static constraints = {
     }

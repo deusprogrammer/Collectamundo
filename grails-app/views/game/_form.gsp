@@ -1,6 +1,6 @@
 <%@ page import="com.trinary.Collectomundo.Game" %>
 
-<g:hiddenField name="console.id" value="${gameInstance ? gameInstance.console.id : console}" />
+<g:hiddenField name="platform.id" value="${gameInstance ? gameInstance.platform.id : platform}" />
 
 <div class="fieldcontain ${hasErrors(bean: gameInstance, field: 'name', 'error')} ">
 	<label for="name">

@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 		<div id="list-game" class="content scaffold-list" role="main">
-			<h1>${console} Games</h1>
+			<h1>${platform} Games</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -59,7 +59,7 @@
 				</fieldset>
 			</g:form>
 			<div class="pagination">
-				<g:paginate controller="game" action="listByConsole" id="${console}" total="${gameInstanceTotal}" />
+				<g:paginate controller="game" action="listByConsole" id="${platform}" total="${gameInstanceTotal}" />
 			</div>
 		</div>
 	</body>

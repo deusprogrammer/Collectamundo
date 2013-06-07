@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="console-label" class="property-label"><g:message code="accessory.console.label" default="Console" /></span>
 					
-						<span class="property-value" aria-labelledby="console-label"><g:link controller="console" action="show" id="${accessoryInstance?.console?.id}">${accessoryInstance?.console?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="console-label"><g:link controller="platform" action="show" id="${accessoryInstance?.console?.id}">${accessoryInstance?.console?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

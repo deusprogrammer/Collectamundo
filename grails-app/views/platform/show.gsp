@@ -1,5 +1,5 @@
 
-<%@ page import="com.trinary.Collectomundo.Console" %>
+<%@ page import="com.trinary.Collectomundo.Platform" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -65,7 +65,7 @@
 					<g:hiddenField name="id" value="${consoleInstance?.id}" />
 					<g:link class="edit" action="edit" id="${consoleInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:link class="edit" controller="game" action="create" params="${['console.id': consoleInstance.id]}">Add Game</g:link>
-					<g:link class="edit" controller="console" action="editGameLibrary" id="${consoleInstance.id}">Add Games (List)</g:link>
+					<g:link class="edit" controller="platform" action="editGameLibrary" id="${consoleInstance.id}">Add Games (List)</g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

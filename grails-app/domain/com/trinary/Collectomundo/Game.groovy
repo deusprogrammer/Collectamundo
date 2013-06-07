@@ -1,12 +1,14 @@
 package com.trinary.Collectomundo
 
+import com.trinary.Collectomundo.user.User;
+
 class Game {
 	String name
 	String publisher
 	Date releaseDate
 	Integer rarity
 	
-	static belongsTo = [console: Console, owner: User]
+	static belongsTo = [platform: Platform, owner: User]
 	static hasMany = [owner: User]
 	
 	String toString() {

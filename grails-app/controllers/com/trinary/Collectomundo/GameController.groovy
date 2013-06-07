@@ -1,6 +1,9 @@
 package com.trinary.Collectomundo
 
 import org.springframework.dao.DataIntegrityViolationException
+
+import com.trinary.Collectomundo.user.User;
+
 import grails.plugins.springsecurity.Secured
 
 //@Secured(['ROLE_ROOT'])
@@ -19,18 +22,18 @@ class GameController {
         [gameInstanceList: Game.list(params), gameInstanceTotal: Game.count()]
     }
 	
-	def listByConsole(String id) {
+	def listByPlatform(String id) {
 		params.offset = (params.offset?.toInteger() ?: 0)
 		params.max = Math.min(params.max?.toInteger() ?: 10, 100)
 		params.sort = 'name'
 		
-		def console = Console.findByAbbreviation(id)
+		def platform = Platform.findByAbbreviation(id)
 		
-		if (!console) {
+		if (!platform) {
 			redirect(action: "index")
 		}
 		
-		def map = paginateService.paginate(console.games, params)
+		def map = paginateService.paginate(platform.games, params)
 		User user = springSecurityService.currentUser
 		
 		println "START: ${map.start}"
@@ -42,15 +45,15 @@ class GameController {
 		
 		println "OWNED GAMES: ${ownedGames}"
 		
-		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, console: console.abbreviation, owned: ownedGames]
+		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, platform: platform.abbreviation, owned: ownedGames]
 	}
 	
 	def listByOwner(String id) {
 		User user = User.findByUsername(id)
 		def games
 		
-		if (params.console) {
-			games = user.games.findAll{it.console.abbreviation == params.console}
+		if (params.platform) {
+			games = user.games.findAll{it.platform.abbreviation == params.platform}
 		} else {
 			games = user.games
 		}
@@ -63,14 +66,14 @@ class GameController {
 		
 		def map = paginateService.paginate(games, params)
 		
-		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, username: user.username, console: params.console ?: "Game"]
+		[gameInstanceList: map.list, gameInstanceTotal: map.listSize, username: user.username, platform: params.platform ?: "Game"]
 	}
     
     def search() {
         def games = Game.list()
         
-        if (params.console) {
-            games = games.findAll{it.console.abbreviation == params.console}
+        if (params.platform) {
+            games = games.findAll{it.platform.abbreviation == params.platform}
         }
         if (params.owner) {
             User user = User.findByUsername(params.owner)
@@ -89,7 +92,7 @@ class GameController {
     }
 
 	def create() {
-        [gameInstance: new Game(params), console: params.console.id]
+        [gameInstance: new Game(params), platform: params.platform.id]
     }
 
     def save() {
@@ -194,7 +197,7 @@ class GameController {
 		if (user && own) {
 			own.each {
 				println "OWN: ${it}"
-				user.addToGames(it)
+				user.addToGameCollection(it)
 			}
 			user.save()
 			redirect(action: "listByOwner", id: user.username)

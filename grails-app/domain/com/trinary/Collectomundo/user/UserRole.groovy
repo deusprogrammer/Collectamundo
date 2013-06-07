@@ -1,6 +1,8 @@
-package com.trinary.Collectomundo
+package com.trinary.Collectomundo.user
 
 import org.apache.commons.lang.builder.HashCodeBuilder
+
+import com.trinary.Collectomundo.Role;
 
 class UserRole implements Serializable {
 
